@@ -46,7 +46,7 @@
         <ul id="projects">
           <% @projects.each do |project| %>
           <% unless project.complete? %>
-          <li class="span3 mix box pint-blog popular">
+          <li class="span3 mix box pint-blog popular" style='min-width:220px;'>
             <h4 class="single-title">
               <b><%= link_to project.title, project_path(project) %></b>
             </h4>
