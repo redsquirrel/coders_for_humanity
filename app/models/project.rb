@@ -1,12 +1,7 @@
 class Project < ActiveRecord::Base
   attr_accessible  :category_id, :creator_id, :description, :status, :story, :title
 
-  STATUSES = {
-    under_review: 'under review',
-    not_yet_assigned: 'not yet assigned',
-    assigned: 'assigned',
-    complete: 'complete'
-  }
+  include Workflow
 
   has_many :collaborations
   has_many :developers, :through => :collaborations
@@ -16,37 +11,35 @@ class Project < ActiveRecord::Base
   validates_presence_of :title
   validates_presence_of :description
 
-  scope :under_review, -> { where(status: STATUSES[:under_review])}
-  scope :assigned, -> { where(status: STATUSES[:assigned]) }
-  scope :completed, -> { where(status: STATUSES[:complete]) }
-  scope :not_yet_assigned, -> { where(status: STATUSES[:not_yet_assigned]) }
+  scope :under_review, -> { where(workflow_state: "under_review")}
+  scope :completed, -> { where(workflow_state: "complete") }
+  scope :public, -> { where('workflow_state != ?', "under_review" ) }
 
-
-  def under_review?
-    status == 'under review'
+  workflow do
+    state :under_review do
+      event :publish, transition_to: :not_yet_assigned
+      event :reject, transition_to: :rejected
+    end
+    state :not_yet_assigned do
+      event :assign, transition_to: :assigned
+    end
+    state :assigned do
+      event :start, transition_to: :in_progress
+    end
+    state :in_progress do
+      event :complete, transition_to: :completed
+    end
+    state :completed
   end
 
-  def public?
-    status != 'under review'
-  end
+  def assign(collaboration)
+    collaboration.role = Role.where(:description => "lead developer").first
+    collaboration.save!
 
+    Thread.new do
+      UserMailer.notify_assignment_to_developer(:idea_owner => self.creator, :developer => collaboration.developer).deliver
+    end
 
-  def assigned?
-    status == 'assigned'
-  end
-
-
-  def complete?
-    status == 'complete'
-  end
-
-
-  def not_yet_assigned?
-    status == 'not yet assigned'
-  end
-
-  def self.statuses
-    STATUSES
   end
 
   def pending_collaborations
@@ -59,5 +52,9 @@ class Project < ActiveRecord::Base
 
   def assigned_collaborations
     collaborations.includes(:developer) - pending_collaborations
+  end
+
+  def category_name
+    category.name
   end
 end

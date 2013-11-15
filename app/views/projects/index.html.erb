@@ -48,14 +48,14 @@
       <div id="portfolio" class="row">
         <ul id="projects">
           <% @projects.each do |project| %>
-          <% unless project.complete? %>
+          <% unless project.completed? %>
           <li class="span3 mix box pint-blog popular">
             <h4 class="single-title">
               <b><%= link_to project.title, project_path(project) %></b>
             </h4>
             Creator: <%= project.creator.name.titleize %> <br>
             Category: <%= project.category.name.humanize %><br>
-            Status: <%= project.status.humanize %>
+            Status: <%= project.current_state.to_s.humanize %>
           </li>                   
           <% end %>
           <% end %>
@@ -75,14 +75,14 @@
       <div id="portfolio" class="row">
         <ul id="projects">
           <% category.projects.each do |project| %>
-          <% unless project.complete? || project.under_review? %>
+          <% unless project.completed? || project.under_review? %>
           <li class="span3 mix box pint-blog popular">
             <h4 class="single-title">
               <b><%= link_to project.title, project_path(project) %></b>
             </h4>
             Creator: <%= project.creator.name.titleize %> <br>
             Category: <%= project.category.name.humanize %><br>
-            Status: <%= project.status.humanize %>
+            Status: <%= project.current_state.to_s.humanize %>
           </li>                   
           <% end %>
           <% end %>
@@ -102,14 +102,14 @@
       <div id="portfolio" class="row">
         <ul id="projects">
           <% @projects.each do |project| %>
-          <% if project.complete? %>
+          <% if project.completed? %>
           <li class="span3 mix box pint-blog popular">
             <h4 class="single-title">
               <b><%= link_to project.title, project_path(project) %></b>
             </h4>
             Creator: <%= project.creator.name.titleize %> <br>
             Category: <%= project.category.name.humanize %><br>
-            Status: <%= project.status.humanize %>
+            Status: <%= project.current_state.to_s.humanize %>
           </li>                   
           <% end %>
           <% end %>
@@ -136,7 +136,7 @@
             </h4>
             Creator: <%= project.creator.name.titleize %> <br>
             Category: <%= project.category.name.humanize %><br>
-            Status: <%= project.status.humanize %>
+            Status: <%= project.current_state.to_s.humanize %>
           </li>                   
           <% end %>
           <% end %>

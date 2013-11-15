@@ -29,7 +29,6 @@ class WizardController < ApplicationController
   def create_project
     project = current_user.create_project(params[:project])
 
-
     render :json => { :project_id => project.id }
   end
 

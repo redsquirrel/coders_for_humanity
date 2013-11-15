@@ -61,7 +61,7 @@
           <p>
             STATUS: <br>
             <span class="project_status">
-                <%= project.status.humanize  %>
+                <%= project.current_state.to_s.humanize  %>
                 <hr>
                 <%end%>
             </span>
@@ -86,7 +86,7 @@
                   </ul>
                   <div class="new-feedback">
               <%@projects.each do |project|%>
-                <%if project.complete? %>
+                <%if project.completed? %>
                  <%=button_tag "Give your developer feedback", :class=> "btn btn-warning btn-small feedback-btn", :method=>:get, :style => "color:black;" %>
                 <%end%>
               <%end%>  

@@ -79,8 +79,6 @@ project_descriptions.push("I currently use a clipboard and pen to conduct the ho
 project_categories = [2, 1, 2, 1, 3, 1, 2, 2, 4, 3]
 
 
-all_statuses = Project::STATUSES.values
-seed_selection = all_statuses - ['under review']
 creator_id_counter = 0
 project_counter = -1
 10.times do
@@ -89,8 +87,7 @@ project_counter = -1
   Project.create  title: project_titles[project_counter],
                   creator_id: creator_id_counter,
                   description: project_descriptions[project_counter],
-                  category_id: project_categories[project_counter],
-                  status: seed_selection.sample
+                  category_id: project_categories[project_counter]
 end
 
 
@@ -104,7 +101,7 @@ projects = Project.all
 
 projects.each do |project|
   # Seed collaborations
-  if project.assigned? || project.complete?
+  if project.assigned? || project.completed?
 
     developer_ids = (1..20).to_a
     collaborator_ids = developer_ids.sample(3)
@@ -120,7 +117,7 @@ projects.each do |project|
   end
 
   # Seed feedbacks
-  if project.complete?
+  if project.completed?
     idea_owner_id = project.creator_id
     project_collaborations = project.collaborations
     developer_ids = []

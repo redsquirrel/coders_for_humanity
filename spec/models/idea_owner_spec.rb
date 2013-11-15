@@ -15,7 +15,6 @@ describe IdeaOwner do
   its(:name) { should eq "John Doe" }
   its(:email) { should eq "john.doe@email.com" }
   its(:organization) { should eq "oliwi" }
-  its(:city) { should eq "Chicago" }
-  its(:country) { should eq "United States" }
+  its(:location) { should eq "Chicago" }
 
 end

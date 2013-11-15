@@ -25,10 +25,10 @@
   <div class="tab-content">
     <ul>
       <li><%= image_tag(@user.gravatar_url) %></li></br>
-      <li><%= link_to "Github Profile", @user_github_url %></li><br>
-      <li>Email: <%= @user_email %></li><br>
-      <li>Location: <%= @user_location %></li><br>
-      <li>Organization: <%= @user_organization %>
+      <li><%= link_to "Github Profile", @user.github_url %></li><br>
+      <li>Email: <%= @user.email %></li><br>
+      <li>Location: <%= @user.location %></li><br>
+      <li>Organization: <%= @user.organization %>
 
     </ul>
     

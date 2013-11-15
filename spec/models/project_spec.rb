@@ -9,14 +9,8 @@ describe Project do
   it { should validate_presence_of(:title) }
   it { should validate_presence_of(:description) }
 
-  let(:assigned_project) { FactoryGirl.create(:project) }
-  let(:completed_project) { FactoryGirl.create(:project, status: "complete") }
-  let(:not_yet_assigned_project) { FactoryGirl.create(:project, status: "not yet assigned") }
 
-
-  describe "#assigned" do
-    subject { assigned_project }
-
+  describe ".assigned" do
     it "includes the assigned project" do
       expect(Project.assigned).to include(assigned_project)
     end

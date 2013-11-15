@@ -59,7 +59,7 @@
         <p>
           STATUS: <br>
           <span class="project_status">
-           <%= @project.status.humanize  %>
+           <%= @project.current_state.to_s.humanize  %>
          </span>
         </p>
         <div class="button1">
@@ -104,7 +104,7 @@
           <% end %>
           <%else%>
           It looks like you don't have any collaborators yet.  <br>
-          In mean time, why don't you take a look at all of our <%=link_to "Developers", root_path, :class => "dev_link"%>, and contact one!
+          In mean time, why don't you take a look at all of our <%=link_to "Developers", developers_path, :class => "dev_link"%>, and contact one!
           <%end%>
 
         </div>
@@ -123,7 +123,7 @@
                     
                   </ul>
             <div class="new-feedback">
-              <%if @project.complete? %>
+              <%if @project.completed? %>
               <%=button_tag "Give your developer feedback", :class=> "btn btn-warning btn-small feedback-btn", :method=>:get, :style => "color:black;" %>
               <%end%>
             </div>

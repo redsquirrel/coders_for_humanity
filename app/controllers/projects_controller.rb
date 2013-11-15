@@ -2,7 +2,6 @@ class ProjectsController < ApplicationController
   protect_from_forgery
 
   def index
-    @project = Project.find_by_id(params[:id])
     @projects = Project.all
     @categories = Category.all
 
@@ -11,7 +10,6 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find_by_id(params[:id])
-    @category = @project.category.name
   end
 
   def edit

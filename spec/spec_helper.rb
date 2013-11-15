@@ -22,11 +22,3 @@ RSpec.configure do |config|
 
   config.include Capybara::DSL
 end
-
-def update_user
-  post :update_user, :id => @user.id,  :idea_owner => {:password => "123456"}, :account => {:first_name => "Jane"}
-end
-
-def update_project
-  post :update_project, :id => @project.id,  :project => { :title => "HEYYY", :category_id => 1 }
-end

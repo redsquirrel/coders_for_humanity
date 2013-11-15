@@ -1,12 +1,10 @@
 FactoryGirl.define do
   
   factory :account do
-    first_name "John"
-    last_name  "Doe"
+    name "John Doe"
     email "john.doe@email.com"
     organization "oliwi"
-    city "Chicago"
-    country "United States"
+    location "Chicago"
   end
 
 end
@@ -21,7 +19,6 @@ FactoryGirl.define do
   factory :project do
     title "Homeless street survey"
     description "Mobile app to facilitate a survey of the homeless in Chicago"
-    status "assigned"
   end
 
 end

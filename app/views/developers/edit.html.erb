@@ -30,7 +30,7 @@
         
 
         <%= form_for @user, :url => developer_path(@user), :method => "PUT" do |f| %>
-              <%=fields_for @account do |a|%>
+              <%=fields_for @user.account do |a|%>
 
                 <%= a.label :name, "Name*" %>
                 <%= a.text_field :name, :class => 'required' %>
